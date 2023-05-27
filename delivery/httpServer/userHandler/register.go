@@ -3,20 +3,21 @@ package userHandler
 import (
 	"fmt"
 	"github.com/labstack/echo/v4"
-	"mediaStorer/service/userservice"
+	"mediaStorer/param/paramuser"
 	"net/http"
 )
 
-func (h Handler) registerHandler(e echo.Context) error {
-	req := userservice.RegisterRequest{}
+func (h Handler) userRegisterHandler(e echo.Context) error {
+	req := paramuser.RegisterRequest{}
 	e.Bind(&req)
-	fmt.Println(req.Email)
+	fmt.Println("ph1111", req.PhoneNumber)
 	res, err := h.usersvc.Register(req)
 	if err != nil {
 		fmt.Println("register error", err)
+		return err
 	}
 	//validate data
-
+	// todo validation
 	// transport to service
 	return e.JSON(http.StatusOK, echo.Map{
 		"message": "ok",

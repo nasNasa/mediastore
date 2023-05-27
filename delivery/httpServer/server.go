@@ -3,6 +3,7 @@ package httpServer
 import (
 	"github.com/labstack/echo/v4"
 	"mediaStorer/delivery/httpServer/userHandler"
+	"mediaStorer/service/authentication"
 	"mediaStorer/service/userservice"
 )
 
@@ -11,9 +12,9 @@ type Server struct {
 	Echo        *echo.Echo
 }
 
-func New(service userservice.Service) Server {
+func New(service userservice.Service, service2 authentication.Service) Server {
 	return Server{
-		UserHandler: userHandler.New(service),
+		UserHandler: userHandler.New(service, service2),
 		Echo:        echo.New(),
 	}
 }

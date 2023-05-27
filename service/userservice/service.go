@@ -1,12 +1,16 @@
 package userservice
 
-import "mediaStorer/entity/userEntity"
+import (
+	"context"
+	"mediaStorer/entity/userEntity"
+)
 
 type Service struct {
 	repository Repository
 }
 
 type Repository interface {
+	GetUserByPhoneNumber(ctx context.Context, phoneNumber string) (userEntity.User, error)
 	RegisterToDb(request userEntity.User) (userEntity.User, error)
 }
 
