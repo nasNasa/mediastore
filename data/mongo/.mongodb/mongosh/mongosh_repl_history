@@ -1,0 +1,27 @@
+show collections
+db.createCollection("coll_name")
+use sample_restaurant
+show dbs
+db.insertone{"ss":"asasa"}
+db.drop
+use sample_reataurants
+show dbs
+show collections
+db.createCollection('posts')
+db.createcollection('posts')
+db
+یذ
+use sample_restaurant
+show dbs
+mongosh -u hasan
+;
+mongosh -u hasan
+mongosh
+mongosh --help
+mongosh --port 28015 ;
+;
+mongosh --port 28015;
+mongosh --port 28015
+mongosh "mongodb://localhost:27017";
+mongosh "mongodb://localhost:27017"
+mongosh "mongodb://localhost:28015"
