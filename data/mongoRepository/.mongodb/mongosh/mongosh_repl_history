@@ -1,0 +1,40 @@
+db.fileRepository.chunks.find()
+db.fileRepository.files.find()
+show collections
+show collection
+db.filerepository.find()
+use mediastore_db
+show dbs
+db.filerepository.find()
+show collections
+db.find()
+use mediastore_db
+show dbs
+db.dropDatabase()
+use mediastore_db
+show dbs
+db.dropDatabase()
+use mediastore_db
+db.dropdatabase()
+db.dropdataase
+db.dropDataBase()
+use mediastore_db
+show dbs
+db.filerepository.find()
+db,filerepository.find()
+db.filerepository.find()
+show collections
+use mediastore_db
+db.filerepository.find()
+db.mediastore_db.find()
+show dbs
+db.filerepository.find()
+db.filerepository.insertOne({"name": "mohammad"})
+db.filerepository.insert({"name": "mohammad"})
+db.filerepository.find()
+use filerepository
+show collections
+use mediastore_db
+show dbs
+mongosh -u hasan
+show dbs

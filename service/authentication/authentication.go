@@ -1,9 +1,12 @@
 package authentication
 
 import (
-	"github.com/golang-jwt/jwt/v4"
+	"fmt"
 	"mediaStorer/entity/userEntity"
+	"strings"
 	"time"
+
+	"github.com/golang-jwt/jwt/v4"
 )
 
 type Service struct {
@@ -39,10 +42,32 @@ func (s Service) CreateToken(userId uint, subject string, expiretionTime time.Du
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	tokenString, err := token.SignedString(s.config.SignKey)
+
+	tokenString, err := token.SignedString([]byte(s.config.SignKey))
+	fmt.Println(s.config.SignKey)
 	if err != nil {
+		fmt.Println("here motherfucker", err)
 		return "", err
 	}
 
 	return tokenString, nil
+}
+
+func (s Service) ParseToken(bearerToken string) (*Claims, error) {
+	//https://pkg.go.dev/github.com/golang-jwt/jwt/v5#example-ParseWithClaims-CustomClaimsType
+
+	tokenStr := strings.Replace(bearerToken, "Bearer ", "", 1)
+
+	token, err := jwt.ParseWithClaims(tokenStr, &Claims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(s.config.SignKey), nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	if claims, ok := token.Claims.(*Claims); ok && token.Valid {
+		return claims, nil
+	} else {
+		return nil, err
+	}
 }

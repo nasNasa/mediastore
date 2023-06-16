@@ -1,9 +1,11 @@
 package userHandler
 
 import (
-	"github.com/labstack/echo/v4"
+	"fmt"
 	"mediaStorer/param/paramuser"
 	"net/http"
+
+	"github.com/labstack/echo/v4"
 )
 
 func (h Handler) userLoginHandler(e echo.Context) error {
@@ -15,6 +17,7 @@ func (h Handler) userLoginHandler(e echo.Context) error {
 	//pass to service
 	userlogin, err := h.usersvc.Login(e.Request().Context(), user)
 	if err != nil {
+		fmt.Println(err)
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 

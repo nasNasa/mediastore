@@ -1,15 +1,29 @@
 package fileservice
 
-import "mediaStorer/param/storage"
+import (
+	"bytes"
+	"context"
+	"mediaStorer/param/storage"
+	"mime/multipart"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
 
 type Service struct {
-	repository Repository
+	fileRepository FileRepository
+	userRepository UserRepository
 }
 
-func New(repository Repository) Service {
-	return Service{repository: repository}
+func New(fileRepository FileRepository, userRepository UserRepository) Service {
+	return Service{fileRepository, userRepository}
 }
 
-type Repository interface {
-	WriteFileToDatabase(file storage.File) error
+type FileRepository interface {
+	Insert(ctx context.Context, file storage.File) error
+	UploadFile(file multipart.File, fileName string, userId uint) (primitive.ObjectID, error)
+	Download(ctx context.Context, file_id primitive.ObjectID) (bytes.Buffer, error)
+}
+
+type UserRepository interface {
+	AddObjectIdToUser(objectId primitive.ObjectID, userId uint) error
 }

@@ -22,8 +22,8 @@ type AuthGenerator interface {
 	CreateRefreshToken(user userEntity.User) (string, error)
 }
 
-func New(repository Repository) Service {
-	return Service{repository: repository}
+func New(repository Repository, authG AuthGenerator) Service {
+	return Service{repository: repository, auth: authG}
 }
 
 func getMD5Hash(text string) string {

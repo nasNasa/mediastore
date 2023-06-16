@@ -6,7 +6,7 @@ import (
 
 type Claims struct {
 	jwt.RegisteredClaims
-	UserId uint `json:"user-id"`
+	UserId uint `json:"user_id"`
 }
 
 func (c Claims) Valid() error {

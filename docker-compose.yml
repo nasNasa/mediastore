@@ -22,7 +22,7 @@ services:
     volumes:
       - ./data/mongoRepository:/data/db
     environment:
-      MONGO_INITDB_ROOT_USERNAME: hasan
+      MONGO_INITDB_ROOT_USERNAME: mdstore
       MONGO_INITDB_ROOT_PASSWORD: 12345678
 
   mongo-express:
@@ -30,9 +30,9 @@ services:
     ports:
       - 27018:27018
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: hasan
+      ME_CONFIG_MONGODB_ADMINUSERNAME: mdstore
       ME_CONFIG_MONGODB_ADMINPASSWORD: 12345678
-      ME_CONFIG_MONGODB_URL: mongodb://hasan:12345678@mongoRepository:27017/
+      ME_CONFIG_MONGODB_URL: mongodb://mdstore:12345678@mongoRepository:27017/
 
 volumes:
   dbdata:

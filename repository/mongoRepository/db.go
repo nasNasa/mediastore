@@ -7,7 +7,7 @@ type Db struct {
 	*mongo.Collection
 }
 
-func New(collection mongo.Collection, config Config) Db {
+func New(config Config, collection mongo.Collection) Db {
 	return Db{config, &collection}
 }
 

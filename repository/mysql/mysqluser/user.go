@@ -2,6 +2,7 @@ package mysqluser
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 	"mediaStorer/entity/userEntity"
 	"mediaStorer/repository/mysql"
@@ -23,12 +24,21 @@ func (d *DB) RegisterToDb(user userEntity.User) (userEntity.User, error) {
 }
 
 func (d *DB) GetUserByPhoneNumber(ctx context.Context, phoneNumber string) (userEntity.User, error) {
-	res := d.conn.Conn().QueryRowContext(ctx, `select * from users where phone_number = ?`, phoneNumber)
-	fmt.Println("result", res)
+	fmt.Println("phonenumber", phoneNumber)
+
+	res := d.conn.Conn().QueryRow(`select * from users where phone_number = ?`, phoneNumber)
+	fmt.Println("here", res)
+
 	user, err := scaner(res)
 	if err != nil {
-		return userEntity.User{}, err
+		if err == sql.ErrNoRows {
+			return userEntity.User{}, fmt.Errorf("no rows")
+		}
+
+		// TODO - log unexpected error for better observability
+		return userEntity.User{}, fmt.Errorf("cant scan")
 	}
+
 	return user, nil
 }
 
@@ -36,8 +46,6 @@ func scaner(scanner mysql.Scanner) (userEntity.User, error) {
 	var createdAt time.Time
 	user := userEntity.User{}
 	err := scanner.Scan(&user.Id, &user.Name, &user.PhoneNumber, &user.Email, &user.Password, &createdAt)
-	if err != nil {
-		return userEntity.User{}, err
-	}
-	return user, nil
+
+	return user, err
 }

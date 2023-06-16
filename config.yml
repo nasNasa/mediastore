@@ -1,4 +1,4 @@
----
+  ---
 type: yml
 auth:
   sign_key: jwt_secret
